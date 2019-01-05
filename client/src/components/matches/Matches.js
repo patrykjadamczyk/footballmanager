@@ -13,6 +13,7 @@ class Matches extends Component {
 
   render() {
     const { matches, loading } = this.props.match;
+
     let matchContent;
 
     if (matches === null || loading || matches.length === 0) {

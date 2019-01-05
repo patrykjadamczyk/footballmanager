@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 //import { Link } from "react-router-dom";
 import { deleteTeam } from "../../actions/teamActions";
 import TeamFormEdit from "./TeamFormEdit";
-import ModalDialog from "../common/ModalDialog";
 
 class TeamItem extends Component {
   onDeleteClick(id) {
@@ -18,14 +17,12 @@ class TeamItem extends Component {
 
   render() {
     const { team } = this.props;
-    const modalContent = "";
     const countryName = team.country.split("_")[0];
     const countrySufix = team.country.split("_")[1];
 
     return (
       <div className="card card-body mb-3">
         <TeamFormEdit team={team} />
-        <ModalDialog id={team._id} content={modalContent} />
         <div className="row">
           <div className="col-md-2">
             <img
@@ -59,7 +56,6 @@ class TeamItem extends Component {
 }
 
 TeamItem.propTypes = {
-  team: PropTypes.object.isReqired,
   auth: PropTypes.object.isRequired,
   deleteTeam: PropTypes.func.isRequired
 };

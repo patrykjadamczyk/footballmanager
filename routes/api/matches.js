@@ -63,6 +63,7 @@ router.post(
       .then(match => {
         const newBetting = {
           userId: req.user.id,
+          userName: req.user.name,
           firstTeamFirstHalfGoals: req.body.firstTeamFirstHalfGoals,
           firstTeamSecondHalfGoals: req.body.firstTeamSecondHalfGoals,
           secondTeamFirstHalfGoals: req.body.secondTeamFirstHalfGoals,

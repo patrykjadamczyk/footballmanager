@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
-import SelectListGroup from "../common/SelectListGroup";
-import { addMatch } from "../../actions/matchActions";
+import { updateMatchBetting } from "../../actions/matchActions";
 
-class MatchForm extends Component {
+class MatchBettingForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -161,5 +160,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addMatch }
-)(MatchForm);
+  { updateMatchBetting }
+)(MatchBettingForm);

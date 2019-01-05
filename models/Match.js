@@ -28,6 +28,9 @@ const MatchSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users"
       },
+      userName: {
+        type: String
+      },
       firstTeamFirstHalfGoals: {
         type: String
       },

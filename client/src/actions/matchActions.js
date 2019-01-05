@@ -83,6 +83,26 @@ export const updateMatch = matchData => dispatch => {
     );
 };
 
+// update match betting
+
+export const updateMatchBetting = matchData => dispatch => {
+  console.log(matchData);
+  axios
+    .post(`api/matches/betting/${matchData.id}`)
+    .then(res =>
+      dispatch({
+        type: UPDATE_MATCH,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Delete match
 
 export const deleteMatch = id => dispatch => {

@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteMatch } from "../../actions/matchActions";
-import ModalDialog from "../common/ModalDialog";
 import TextFieldGroup from "../common/TextFieldGroup";
 import MatchBettingsFeed from "../bettings/MatchBettingsFeed";
+import MatchBettingUserForm from "../bettings/MatchBettingUserForm";
 
 class MatchItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMatchBettingFeed: false
+      showMatchBettingFeed: false,
+      showMatchBettingUser: false
     };
   }
   onDeleteClick(id) {
@@ -22,26 +23,22 @@ class MatchItem extends Component {
   }
 
   onUpdateClick(id) {
-    console.log(id);
+    alert("tylko administrator może zmienić wynik spotkania");
   }
 
   render() {
     const { match } = this.props;
-    const modalContent = "";
 
     const firstTeamName = match.firstTeamName.split("_")[0];
     const firstTeamSufix = match.firstTeamName.split("_")[1];
     const secondTeamName = match.secondTeamName.split("_")[0];
     const secondTeamSufix = match.secondTeamName.split("_")[1];
 
-    const { showMatchBettingFeed } = this.state.showMatchBettingFeed;
-
     // const day = date("Y-m-d", match.date);
     // const time = date("H:i:s", match.date);
 
     return (
       <div className="card card-body mb-3">
-        <ModalDialog id={match._id} content={modalContent} />
         <div className="card card-info">
           <div
             className="card-header bg-info text-white"
@@ -155,20 +152,27 @@ class MatchItem extends Component {
               </div>
             </div>
             <div className="col-md-2 d-flex flex-column">
-              <button
+              {/* <button
                 onClick={this.onDeleteClick.bind(this, match._id)}
                 type="button"
                 className="btn btn-danger mt-1 float-right"
               >
                 <i className="fas fa-times" />
-              </button>
+              </button> */}
               <button
                 type="button"
-                onClick={this.onSetBettingClick.bind(this, match._id)}
-                className="btn btn-success mt-auto mb-1"
+                className="btn btn-success mb-auto mb-1"
+                onClick={() => {
+                  this.setState({
+                    showMatchBettingUser: !this.state.showMatchBettingUser
+                  });
+                }}
               >
                 Obstaw
               </button>
+              {this.state.showMatchBettingUser ? (
+                <MatchBettingUserForm match={match} />
+              ) : null}
             </div>
           </div>
         </form>
@@ -178,7 +182,6 @@ class MatchItem extends Component {
 }
 
 MatchItem.propTypes = {
-  match: PropTypes.object.isReqired,
   auth: PropTypes.object.isRequired,
   deleteMatch: PropTypes.func.isRequired
 };

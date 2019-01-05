@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import TextFieldGroup from "../common/TextFieldGroup";
+import { updateMatchBetting } from "../../actions/matchActions";
 
-class ModalDialog extends Component {
+class MatchBettingModalDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,10 +13,12 @@ class ModalDialog extends Component {
   }
   componentDidMount() {}
   render() {
+    const { match } = this.props;
+
     return (
       <div
         className="modal fade"
-        id="myModal"
+        id={match._id}
         tabIndex="-1"
         role="dialog"
         aria-labelledby="myModalLabel"
@@ -72,4 +78,4 @@ class ModalDialog extends Component {
   }
 }
 
-export default ModalDialog;
+export default connect()(MatchBettingModalDialog);

@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import MatchBettingItem from "./MatchBettingsItem";
 
 class MatchBettingsFeed extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     const { bettings } = this.props;
     const bettingItems = bettings.map(betting => (
@@ -11,8 +14,7 @@ class MatchBettingsFeed extends Component {
 
     return (
       <div className="bettingsBox">
-        <h1>Lista zakładów dla wybranego meczu</h1>
-        <table class="table table-striped table-dark table-responsive">
+        <table className="table table-striped table-dark table-responsive">
           <thead>
             <tr>
               <th scope="col">Użytkownik</th>

@@ -6,12 +6,10 @@ import { getUserById } from "../../actions/userActions";
 class MatchBettingsItem extends Component {
   render() {
     const { betting } = this.props;
-    //  Todo
-    // const user = getUserById(betting.userId);
 
     return (
       <tr>
-        <th scope="row">{betting.userId}</th>
+        <th scope="row">{betting.userName}</th>
         <td>{betting.firstTeamFirstHalfGoals}</td>
         <td>{betting.firstTeamSecondHalfGoals}</td>
         <td>{betting.secondTeamFirstHalfGoals}</td>
@@ -22,7 +20,6 @@ class MatchBettingsItem extends Component {
 }
 
 MatchBettingsItem.propTypes = {
-  betting: PropTypes.object.isReqired,
   auth: PropTypes.object.isRequired,
   getUserById: PropTypes.func.isRequired
 };
