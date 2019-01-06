@@ -11,7 +11,7 @@ class MatchFeed extends Component {
 }
 
 MatchFeed.propTypes = {
-  matches: PropTypes.array.isRequired
+  matches: PropTypes.object.isRequired
 };
 
 export default MatchFeed;
