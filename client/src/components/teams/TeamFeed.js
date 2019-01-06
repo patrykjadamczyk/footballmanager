@@ -5,7 +5,11 @@ import TeamItem from "./TeamItem";
 class TeamFeed extends Component {
   render() {
     const { teams } = this.props;
-    return teams.map(team => <TeamItem key={team._id} team={team} />);
+    return(
+      <div className="h1">
+      
+      gggg</div>
+    )
   }
 }
 
