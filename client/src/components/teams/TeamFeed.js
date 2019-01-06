@@ -4,9 +4,7 @@ import TeamItem from "./TeamItem";
 
 class TeamFeed extends Component {
   render() {
-    let { teams } = this.props;
-    teams = Array.from(teams);
-
+    const { teams } = this.props;
     return teams.map(team => <TeamItem key={team._id} team={team} />);
   }
 }

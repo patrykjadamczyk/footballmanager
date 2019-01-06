@@ -17,8 +17,8 @@ class TeamItem extends Component {
 
   render() {
     const { team } = this.props;
-    const countryName = team.country;
-    const countrySufix = team.country;
+    const countryName = team.country.split("_")[0];
+    const countrySufix = team.country.split("_")[1];
 
     return (
       <div className="card card-body mb-3">
