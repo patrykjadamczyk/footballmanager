@@ -54,7 +54,7 @@ class TeamFormEdit extends Component {
 
   render() {
     const { showTeamForm, errors, country, info } = this.state;
-    const countryName = country.split("_")[0];
+    const countryName = country;
 
     return (
       <div className="post-form mb-3">
