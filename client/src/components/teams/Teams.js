@@ -8,6 +8,9 @@ import { getTeams } from "../../actions/teamActions";
 
 class Teams extends Component {
   componentDidMount() {
+    if (this.props.auth.isAuthenticated == false) {
+      this.props.history.push("/");
+    }
     this.props.getTeams();
   }
   render() {
@@ -36,11 +39,13 @@ class Teams extends Component {
 
 Teams.propTypes = {
   team: PropTypes.object.isRequired,
-  getTeams: PropTypes.func.isRequired
+  getTeams: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  team: state.team
+  team: state.team,
+  auth: state.auth
 });
 
 export default connect(

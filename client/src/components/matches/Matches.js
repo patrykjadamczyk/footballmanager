@@ -8,6 +8,9 @@ import { getMatches } from "../../actions/matchActions";
 
 class Matches extends Component {
   componentDidMount() {
+    if (this.props.auth.isAuthenticated == false) {
+      this.props.history.push("/");
+    }
     this.props.getMatches();
   }
 
@@ -38,11 +41,13 @@ class Matches extends Component {
 
 Matches.propTypes = {
   match: PropTypes.object.isRequired,
-  getMatches: PropTypes.func.isRequired
+  getMatches: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  match: state.match
+  match: state.match,
+  auth: state.auth
 });
 
 export default connect(
