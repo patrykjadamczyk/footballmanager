@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   ADD_TEAM,
   GET_TEAM,
-  GET_TEAMS,
+  //  GET_TEAMS,
   UPDATE_TEAM,
   DELETE_TEAM,
   GET_ERRORS
@@ -28,20 +28,6 @@ export const addTeam = teamData => dispatch => {
 
 export const getTeams = () => dispatch => {
   //dispatch(setPostLoading());
-  axios
-    .get("/api/teams")
-    .then(res =>
-      dispatch({
-        type: GET_TEAMS,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_TEAMS,
-        payload: null
-      })
-    );
 };
 
 // get current team
