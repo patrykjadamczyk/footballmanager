@@ -8,7 +8,7 @@ import { getTeams } from "../../actions/teamActions";
 
 class Teams extends Component {
   componentDidMount() {
-    if (this.props.auth.isAuthenticated == false) {
+    if (this.props.auth.isAuthenticated === false) {
       this.props.history.push("/");
     }
     this.props.getTeams();

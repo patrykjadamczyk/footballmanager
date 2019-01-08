@@ -8,7 +8,7 @@ import { getMatches } from "../../actions/matchActions";
 
 class Matches extends Component {
   componentDidMount() {
-    if (this.props.auth.isAuthenticated == false) {
+    if (this.props.auth.isAuthenticated === false) {
       this.props.history.push("/");
     }
     this.props.getMatches();

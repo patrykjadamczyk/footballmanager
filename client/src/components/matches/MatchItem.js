@@ -13,9 +13,20 @@ class MatchItem extends Component {
       showMatchBettingFeed: false,
       showMatchBettingUser: false
     };
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
+
   onDeleteClick(id) {
     this.props.deleteMatch(id);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+  }
+
+  onChange(e) {
+    e.preventDefault();
   }
 
   onSetBettingClick(id) {
