@@ -46,7 +46,7 @@ export default function(state = initialState, action) {
     case UPDATE_MATCH_BETTING:
       return {
         ...state,
-        match: action.payload
+        matches: [action.payload, ...state.matches]
       };
     case DELETE_MATCH:
       return {

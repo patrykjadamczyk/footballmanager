@@ -12,7 +12,7 @@ class MatchBettingUserForm extends Component {
       betting => betting.userId === props.auth.user.id
     );
 
-    console.log(betting[0]);
+    //  console.log(betting[0]);
 
     this.state = {
       matchId: props.match._id,

@@ -61,20 +61,56 @@ router.post(
 
     Match.findById(req.params.id)
       .then(match => {
-        const newBetting = {
-          userId: req.user.id,
-          userName: req.user.name,
-          firstTeamFirstHalfGoals: req.body.firstTeamFirstHalfGoals,
-          firstTeamSecondHalfGoals: req.body.firstTeamSecondHalfGoals,
-          secondTeamFirstHalfGoals: req.body.secondTeamFirstHalfGoals,
-          secondTeamSecondHalfGoals: req.body.secondTeamSecondHalfGoals
-        };
+        // get fields
+        const newBetting = {};
+        newBetting.userId = req.user.id;
+        newBetting.userName = req.user.name;
+
+        if (req.body.firstTeamFirstHalfGoals)
+          newBetting.firstTeamFirstHalfGoals = req.body.firstTeamFirstHalfGoals;
+        if (req.body.firstTeamSecondHalfGoals)
+          newBetting.firstTeamSecondHalfGoals =
+            req.body.firstTeamSecondHalfGoals;
+        if (req.body.secondTeamFirstHalfGoals)
+          newBetting.secondTeamFirstHalfGoals =
+            req.body.secondTeamFirstHalfGoals;
+        if (req.body.secondTeamSecondHalfGoals)
+          newBetting.secondTeamSecondHalfGoals =
+            req.body.secondTeamSecondHalfGoals;
+
+        let UserBettingExists = false;
+
+        match.bettings.map(betting => {
+          if (req.user.id == betting.userId) {
+            UserBettingExists = true;
+            UserBettingId = betting._id;
+            console.log("user exists");
+          }
+        });
+
+        if (UserBettingExists == true) {
+          //  console.log(match.bettings);
+          // Update
+          console.log("update");
+
+          // newBetting._id = UserBettingId;
+          // match.bettings.unshift(newBetting);
+          // match.save().then(match => res.json(match));
+
+          /* match.bettings
+            .findOneAndUpdate({ userId: req.user.id }, { $set: newBetting })
+            .then(match => res.json(match));*/
+        } else {
+          console.log("add");
+          match.bettings.unshift(newBetting);
+          match.save().then(match => res.json(match));
+        }
 
         // Add to betting array
-        match.bettings.unshift(newBetting);
+
         // ;
         // save
-        match.save().then(match => res.json(match));
+        //  match.save().then(match => res.json(match));
         //      return res.json({ postid: post });
       })
       .catch(err => res.status(404).json({ matchnotfound: "match not found" }));

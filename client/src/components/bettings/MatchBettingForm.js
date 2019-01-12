@@ -25,7 +25,7 @@ class MatchBettingForm extends Component {
     if (newProps.errors) {
       this.setState({ errors: newProps.errors });
     }
-    console.log(newProps.errors);
+    // console.log(newProps.errors);
   }
 
   onSubmit(e) {
