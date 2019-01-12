@@ -59,9 +59,9 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    // console.log(req.params.id);
     Match.findById(req.params.id)
       .then(match => {
-        // get fields
         const newBetting = {};
         newBetting.userId = req.user.id;
         newBetting.userName = req.user.name;
@@ -80,38 +80,32 @@ router.post(
 
         let UserBettingExists = false;
 
+        // match.bettings = match.bettings.filter(betting => {
+        //   betting.userId !== req.user.id;
+        // });
+
         match.bettings.map(betting => {
           if (req.user.id == betting.userId) {
             UserBettingExists = true;
-            UserBettingId = betting._id;
-            console.log("user exists");
+
+            //     console.log("user betting exists");
+
+            betting.firstTeamFirstHalfGoals =
+              newBetting.firstTeamFirstHalfGoals;
+            betting.firstTeamSecondHalfGoals =
+              newBetting.firstTeamSecondHalfGoals;
+            betting.secondTeamFirstHalfGoals =
+              newBetting.secondTeamFirstHalfGoals;
+            betting.secondTeamSecondHalfGoals =
+              newBetting.secondTeamSecondHalfGoals;
           }
         });
 
-        if (UserBettingExists == true) {
-          //  console.log(match.bettings);
-          // Update
-          console.log("update");
-
-          // newBetting._id = UserBettingId;
-          // match.bettings.unshift(newBetting);
-          // match.save().then(match => res.json(match));
-
-          /* match.bettings
-            .findOneAndUpdate({ userId: req.user.id }, { $set: newBetting })
-            .then(match => res.json(match));*/
-        } else {
-          console.log("add");
+        if (!UserBettingExists) {
           match.bettings.unshift(newBetting);
-          match.save().then(match => res.json(match));
         }
 
-        // Add to betting array
-
-        // ;
-        // save
-        //  match.save().then(match => res.json(match));
-        //      return res.json({ postid: post });
+        match.save().then(match => res.json(match));
       })
       .catch(err => res.status(404).json({ matchnotfound: "match not found" }));
   }

@@ -1,6 +1,6 @@
 import {
   ADD_TEAM,
-  //  GET_TEAMS,
+  GET_TEAMS,
   GET_TEAM,
   UPDATE_TEAM,
   DELETE_TEAM,
@@ -20,12 +20,12 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
-    /*   case GET_TEAMS:
+    case GET_TEAMS:
       return {
         ...state,
         teams: action.payload,
         loading: false
-      };*/
+      };
     case GET_TEAM:
       return {
         ...state,

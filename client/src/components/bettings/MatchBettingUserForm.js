@@ -57,8 +57,8 @@ class MatchBettingUserForm extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="post-form mb-3">
-        <form onSubmit={this.onSubmit}>
+      <div className="post-form mb-3 mt-3 betting-user-fom-box">
+        <form className="form-inline" onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="firstTeam">I drużyna</label>
             <TextFieldGroup
@@ -93,7 +93,7 @@ class MatchBettingUserForm extends Component {
               error={errors.secondTeamSecondHalfGoals}
             />
           </div>
-          <button type="submit" className="btn btn-dark float-right">
+          <button type="submit" className="btn ml-3 btn-dark float-right">
             Zapisz
           </button>
         </form>

@@ -23,7 +23,7 @@ class Teams extends Component {
       teamContent = <TeamFeed teams={teams} />;
     }
     return (
-      <div className="feed">
+      <div className="feed teams-box">
         <div className="container">
           <div className="row">
             <div className="col-md-12">

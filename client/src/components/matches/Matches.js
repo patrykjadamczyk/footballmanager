@@ -25,7 +25,7 @@ class Matches extends Component {
       matchContent = <MatchFeed matches={matches} />;
     }
     return (
-      <div className="feed">
+      <div className="feed matches-box">
         <div className="container">
           <div className="row">
             <div className="col-md-12">

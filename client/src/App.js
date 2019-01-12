@@ -8,10 +8,10 @@ import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import Dashboard from "./components/dashboard/Dashboard";
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Posts from "./components/posts/Posts";
 import Teams from "./components/teams/Teams";
 import Matches from "./components/matches/Matches";
 
@@ -43,9 +43,9 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Landing} />
             <div className="container">
+              <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/feed" component={Posts} />
               <Route exact path="/teams_feed" component={Teams} />
               <Route exact path="/matches_feed" component={Matches} />
             </div>

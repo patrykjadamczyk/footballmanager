@@ -5,8 +5,6 @@ const passport = require("passport");
 const path = require("path");
 
 const users = require("./routes/api/users");
-const profile = require("./routes/api/profile");
-const posts = require("./routes/api/posts");
 const matches = require("./routes/api/matches");
 const teams = require("./routes/api/teams");
 
@@ -40,8 +38,6 @@ app.listen(port, () => console.log(`server running on port ${port}`));
 
 // Use Routes
 app.use("/api/users", users);
-app.use("/api/profile", profile);
-app.use("/api/posts", posts);
 app.use("/api/matches", matches);
 app.use("/api/teams", teams);
 
