@@ -13,9 +13,20 @@ class MatchItem extends Component {
       showMatchBettingFeed: false,
       showMatchBettingUser: false
     };
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
+
   onDeleteClick(id) {
     this.props.deleteMatch(id);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+  }
+
+  onChange(e) {
+    e.preventDefault();
   }
 
   onSetBettingClick(id) {
@@ -38,7 +49,7 @@ class MatchItem extends Component {
     // const time = date("H:i:s", match.date);
 
     return (
-      <div className="card card-body mb-3">
+      <div className="card card-body mb-3 match-item-box">
         <div className="card card-info">
           <div
             className="card-header bg-info text-white"
@@ -63,10 +74,24 @@ class MatchItem extends Component {
           {this.state.showMatchBettingFeed ? (
             <MatchBettingsFeed bettings={match.bettings} />
           ) : null}
+          <button
+            type="button"
+            className="btn btn-success mb-auto mb-1"
+            onClick={() => {
+              this.setState({
+                showMatchBettingUser: !this.state.showMatchBettingUser
+              });
+            }}
+          >
+            Obstaw
+          </button>
+          {this.state.showMatchBettingUser ? (
+            <MatchBettingUserForm match={match} />
+          ) : null}
         </div>
         <form onSubmit={this.onSubmit}>
           <div className="row">
-            <div className="col-md-2">
+            <div className="col-md-3 text-center">
               <p
                 className="mt-2"
                 style={{ fontWeight: "bold", textAlign: "center" }}
@@ -74,11 +99,7 @@ class MatchItem extends Component {
                 I drużyna
               </p>
               <br />
-              <img
-                className="rounded-circle d-md-block"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-              />
+              <img src={`img/flags/${firstTeamSufix}.jpg`} alt="" />
               <br />
               <p className="text-center">{firstTeamName}</p>
             </div>
@@ -117,7 +138,7 @@ class MatchItem extends Component {
                 Uaktualnij wynik
               </button>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-3 text-center">
               <p
                 className="mt-2"
                 style={{ fontWeight: "bold", textAlign: "center" }}
@@ -125,11 +146,7 @@ class MatchItem extends Component {
                 II drużyna
               </p>
               <br />
-              <img
-                className="rounded-circle d-md-block"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-              />
+              <img src={`img/flags/${secondTeamSufix}.jpg`} alt="" />
               <br />
               <p className="text-center">{secondTeamName}</p>
             </div>
@@ -159,20 +176,6 @@ class MatchItem extends Component {
               >
                 <i className="fas fa-times" />
               </button> */}
-              <button
-                type="button"
-                className="btn btn-success mb-auto mb-1"
-                onClick={() => {
-                  this.setState({
-                    showMatchBettingUser: !this.state.showMatchBettingUser
-                  });
-                }}
-              >
-                Obstaw
-              </button>
-              {this.state.showMatchBettingUser ? (
-                <MatchBettingUserForm match={match} />
-              ) : null}
             </div>
           </div>
         </form>

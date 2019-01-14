@@ -59,23 +59,53 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    // console.log(req.params.id);
     Match.findById(req.params.id)
       .then(match => {
-        const newBetting = {
-          userId: req.user.id,
-          userName: req.user.name,
-          firstTeamFirstHalfGoals: req.body.firstTeamFirstHalfGoals,
-          firstTeamSecondHalfGoals: req.body.firstTeamSecondHalfGoals,
-          secondTeamFirstHalfGoals: req.body.secondTeamFirstHalfGoals,
-          secondTeamSecondHalfGoals: req.body.secondTeamSecondHalfGoals
-        };
+        const newBetting = {};
+        newBetting.userId = req.user.id;
+        newBetting.userName = req.user.name;
 
-        // Add to betting array
-        match.bettings.unshift(newBetting);
-        // ;
-        // save
+        if (req.body.firstTeamFirstHalfGoals)
+          newBetting.firstTeamFirstHalfGoals = req.body.firstTeamFirstHalfGoals;
+        if (req.body.firstTeamSecondHalfGoals)
+          newBetting.firstTeamSecondHalfGoals =
+            req.body.firstTeamSecondHalfGoals;
+        if (req.body.secondTeamFirstHalfGoals)
+          newBetting.secondTeamFirstHalfGoals =
+            req.body.secondTeamFirstHalfGoals;
+        if (req.body.secondTeamSecondHalfGoals)
+          newBetting.secondTeamSecondHalfGoals =
+            req.body.secondTeamSecondHalfGoals;
+
+        let UserBettingExists = false;
+
+        // match.bettings = match.bettings.filter(betting => {
+        //   betting.userId !== req.user.id;
+        // });
+
+        match.bettings.map(betting => {
+          if (req.user.id == betting.userId) {
+            UserBettingExists = true;
+
+            //     console.log("user betting exists");
+
+            betting.firstTeamFirstHalfGoals =
+              newBetting.firstTeamFirstHalfGoals;
+            betting.firstTeamSecondHalfGoals =
+              newBetting.firstTeamSecondHalfGoals;
+            betting.secondTeamFirstHalfGoals =
+              newBetting.secondTeamFirstHalfGoals;
+            betting.secondTeamSecondHalfGoals =
+              newBetting.secondTeamSecondHalfGoals;
+          }
+        });
+
+        if (!UserBettingExists) {
+          match.bettings.unshift(newBetting);
+        }
+
         match.save().then(match => res.json(match));
-        //      return res.json({ postid: post });
       })
       .catch(err => res.status(404).json({ matchnotfound: "match not found" }));
   }

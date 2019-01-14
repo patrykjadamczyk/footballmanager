@@ -8,19 +8,19 @@ module.exports = function validateLoginInput(data) {
   data.password = !isEmpty(data.password) ? data.password : "";
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    errors.email = "Email jest wymagany";
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Email is required";
+    errors.email = "Email jest wymagany";
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "Password must be at least 6 characters";
+    errors.password = "Hasło musi mieć przynajmniej 6 znaków";
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password is required";
+    errors.password = "Hasło jest wymagane";
   }
 
   return {

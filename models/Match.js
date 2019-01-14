@@ -54,4 +54,5 @@ const MatchSchema = new Schema({
     default: Date.now
   }
 });
+
 module.exports = Match = mongoose.model("match", MatchSchema);

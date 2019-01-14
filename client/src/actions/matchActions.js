@@ -5,6 +5,7 @@ import {
   GET_MATCH,
   GET_MATCHES,
   UPDATE_MATCH,
+  UPDATE_MATCH_BETTING,
   DELETE_MATCH,
   GET_ERRORS
 } from "./types";
@@ -66,7 +67,7 @@ export const getCurrentMatch = id => dispatch => {
 // update match
 
 export const updateMatch = matchData => dispatch => {
-  console.log(matchData);
+  //console.log(matchData);
   axios
     .post(`/api/matches/update/${matchData.id}`)
     .then(res =>
@@ -86,12 +87,12 @@ export const updateMatch = matchData => dispatch => {
 // update match betting
 
 export const updateMatchBetting = matchData => dispatch => {
-  console.log(matchData);
+  //  console.log(matchData);
   axios
-    .post(`api/matches/betting/${matchData.id}`)
+    .post(`api/matches/betting/${matchData.id}`, matchData)
     .then(res =>
       dispatch({
-        type: UPDATE_MATCH,
+        type: UPDATE_MATCH_BETTING,
         payload: res.data
       })
     )

@@ -1,6 +1,4 @@
 import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
-import jwt_decode from "jwt-decode";
 
 import { GET_USER_BY_ID, GET_ERRORS } from "./types";
 

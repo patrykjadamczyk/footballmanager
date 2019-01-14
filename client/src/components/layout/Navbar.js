@@ -71,6 +71,11 @@ class Navbar extends Component {
         <div className="container">
           <Link className="navbar-brand" to="/">
             Football Manager
+            {isAuthenticated ? (
+              <span className="badge ml-3 badge-light">{user.name}</span>
+            ) : (
+              ""
+            )}
           </Link>
           <button
             className="navbar-toggler"

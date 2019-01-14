@@ -3,6 +3,7 @@ import {
   GET_MATCHES,
   GET_MATCH,
   UPDATE_MATCH,
+  UPDATE_MATCH_BETTING,
   DELETE_MATCH,
   MATCH_LOADING
 } from "../actions/types";
@@ -40,7 +41,12 @@ export default function(state = initialState, action) {
     case UPDATE_MATCH:
       return {
         ...state,
-        maches: [action.payload, ...state.matches]
+        matches: [action.payload, ...state.matches]
+      };
+    case UPDATE_MATCH_BETTING:
+      return {
+        ...state,
+        matches: [action.payload, ...state.matches]
       };
     case DELETE_MATCH:
       return {

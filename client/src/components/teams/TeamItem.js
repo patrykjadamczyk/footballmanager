@@ -21,26 +21,22 @@ class TeamItem extends Component {
     const countrySufix = team.country.split("_")[1];
 
     return (
-      <div className="card card-body mb-3">
+      <div className="card card-body mb-3 team-item-box">
         <TeamFormEdit team={team} />
         <div className="row">
-          <div className="col-md-2">
-            <img
-              className="rounded-circle d-none d-md-block"
-              src={`img/flags/${countrySufix}.jpg`}
-              alt=""
-            />
+          <div className="col-md-3 text-center">
+            <img className="" src={`img/flags/${countrySufix}.jpg`} alt="" />
             <br />
             <p className="text-center">{countryName}</p>
           </div>
-          <div className="col-md-10">
+          <div className="col-md-9">
             <p className="lead">{team.info}</p>
-            <button
+            {/* <button
               onClick={this.onEditClick.bind(this, team._id)}
               className="btn btn-info mr-1 float-right"
             >
               <i className="fas fa-pen-square" />
-            </button>
+            </button> */}
             <button
               onClick={this.onDeleteClick.bind(this, team._id)}
               type="button"

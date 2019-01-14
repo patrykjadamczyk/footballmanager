@@ -3,7 +3,7 @@ const isEmpty = require("./is-empty");
 
 module.exports = function validateMatchInput(data) {
   let errors = {};
-
+  /*
   data.firstTeamName = !isEmpty(data.firstTeamName) ? data.firstTeamName : "";
 
   if (Validator.isEmpty(data.firstTeamName)) {
@@ -17,7 +17,7 @@ module.exports = function validateMatchInput(data) {
   if (Validator.isEmpty(data.secondTeamName)) {
     errors.secondTeamName = "secondTeamName is required";
   }
-
+*/
   return {
     errors,
     isValid: isEmpty(errors)
