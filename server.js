@@ -7,6 +7,7 @@ const path = require("path");
 const users = require("./routes/api/users");
 const matches = require("./routes/api/matches");
 const teams = require("./routes/api/teams");
+const points = require("./routes/api/points");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.listen(port, () => console.log(`server running on port ${port}`));
 app.use("/api/users", users);
 app.use("/api/matches", matches);
 app.use("/api/teams", teams);
+app.use("/api/points", points);
 
 // serv assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -49,4 +51,3 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-

@@ -46,7 +46,10 @@ export default function(state = initialState, action) {
     case UPDATE_MATCH_BETTING:
       return {
         ...state,
-        matches: [action.payload, ...state.matches]
+        matches: [
+          action.payload,
+          ...state.matches.filter(match => match._id !== action.payload)
+        ]
       };
     case DELETE_MATCH:
       return {

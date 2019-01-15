@@ -1,7 +1,6 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
-export const POST_LOADING = "POST_LOADING";
 export const DELETE_POST = "DELETE_POST";
 export const GET_TEAMS = "GET_TEAMS";
 export const GET_TEAM = "GET_TEAM";

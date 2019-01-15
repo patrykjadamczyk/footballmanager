@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteMatch } from "../../actions/matchActions";
+import { deleteMatch, updateMatch } from "../../actions/matchActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 import MatchBettingsFeed from "../bettings/MatchBettingsFeed";
 import MatchBettingUserForm from "../bettings/MatchBettingUserForm";
@@ -9,10 +9,18 @@ import MatchBettingUserForm from "../bettings/MatchBettingUserForm";
 class MatchItem extends Component {
   constructor(props) {
     super(props);
+    //  console.log(props);
     this.state = {
+      firstTeamName: props.match.firstTeamName,
+      secondTeamName: props.match.secondTeamName,
+      firstTeamFirstHalfGoals: props.match.firstTeamFirstHalfGoals,
+      firstTeamSecondHalfGoals: props.match.firstTeamSecondHalfGoals,
+      secondTeamFirstHalfGoals: props.match.secondTeamFirstHalfGoals,
+      secondTeamSecondHalfGoals: props.match.secondTeamSecondHalfGoals,
       showMatchBettingFeed: false,
       showMatchBettingUser: false
     };
+    //  console.log(this.state);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -26,24 +34,28 @@ class MatchItem extends Component {
   }
 
   onChange(e) {
-    e.preventDefault();
-  }
-
-  onSetBettingClick(id) {
-    console.log(id);
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onUpdateClick(id) {
-    alert("tylko administrator może zmienić wynik spotkania");
+    const matchData = {
+      id: id,
+      firstTeamFirstHalfGoals: this.state.firstTeamFirstHalfGoals,
+      firstTeamSecondHalfGoals: this.state.firstTeamSecondHalfGoals,
+      secondTeamFirstHalfGoals: this.state.secondTeamFirstHalfGoals,
+      secondTeamSecondHalfGoals: this.state.secondTeamSecondHalfGoals
+    };
+
+    this.props.updateMatch(matchData);
   }
 
   render() {
     const { match } = this.props;
 
-    const firstTeamName = match.firstTeamName.split("_")[0];
-    const firstTeamSufix = match.firstTeamName.split("_")[1];
-    const secondTeamName = match.secondTeamName.split("_")[0];
-    const secondTeamSufix = match.secondTeamName.split("_")[1];
+    const firstTeamName = this.state.firstTeamName.split("_")[0];
+    const firstTeamSufix = this.state.firstTeamName.split("_")[1];
+    const secondTeamName = this.state.secondTeamName.split("_")[0];
+    const secondTeamSufix = this.state.secondTeamName.split("_")[1];
 
     // const day = date("Y-m-d", match.date);
     // const time = date("H:i:s", match.date);
@@ -108,7 +120,7 @@ class MatchItem extends Component {
                 Liczba bramek I połowa:
                 <TextFieldGroup
                   name="firstTeamFirstHalfGoals"
-                  value={match.firstTeamFirstHalfGoals}
+                  value={this.state.firstTeamFirstHalfGoals}
                   onChange={this.onChange}
                 />
               </div>
@@ -116,7 +128,7 @@ class MatchItem extends Component {
                 Liczba bramek II połowa:
                 <TextFieldGroup
                   name="firstTeamSecondHalfGoals"
-                  value={match.firstTeamSecondHalfGoals}
+                  value={this.state.firstTeamSecondHalfGoals}
                   onChange={this.onChange}
                 />
               </div>
@@ -155,7 +167,7 @@ class MatchItem extends Component {
                 Liczba bramek I połowa:
                 <TextFieldGroup
                   name="secondTeamFirstHalfGoals"
-                  value={match.secondTeamFirstHalfGoals}
+                  value={this.state.secondTeamFirstHalfGoals}
                   onChange={this.onChange}
                 />
               </div>
@@ -163,7 +175,7 @@ class MatchItem extends Component {
                 Liczba bramek II połowa:
                 <TextFieldGroup
                   name="secondTeamSecondHalfGoals"
-                  value={match.secondTeamSecondHalfGoals}
+                  value={this.state.secondTeamSecondHalfGoals}
                   onChange={this.onChange}
                 />
               </div>
@@ -196,5 +208,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { deleteMatch }
+  { deleteMatch, updateMatch }
 )(MatchItem);

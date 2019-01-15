@@ -11,16 +11,16 @@ const MatchSchema = new Schema({
     required: true
   },
   firstTeamFirstHalfGoals: {
-    type: String
+    type: Number
   },
   firstTeamSecondHalfGoals: {
-    type: String
+    type: Number
   },
   secondTeamFirstHalfGoals: {
-    type: String
+    type: Number
   },
   secondTeamSecondHalfGoals: {
-    type: String
+    type: Number
   },
   bettings: [
     {
@@ -32,16 +32,16 @@ const MatchSchema = new Schema({
         type: String
       },
       firstTeamFirstHalfGoals: {
-        type: String
+        type: Number
       },
       firstTeamSecondHalfGoals: {
-        type: String
+        type: Number
       },
       secondTeamFirstHalfGoals: {
-        type: String
+        type: Number
       },
       secondTeamSecondHalfGoals: {
-        type: String
+        type: Number
       },
       date: {
         type: Date,

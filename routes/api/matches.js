@@ -3,14 +3,14 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-// Post Model
+// Match Model
 const Match = require("../../models/Match");
 
 // Validation
 const validateMatchInput = require("../../validation/match");
 
 // @route GET api/matches/test
-// @desc test post route
+// @desc test match route
 // @access Public
 router.get("/test", (req, res) => res.json({ msg: "matches works" }));
 
@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 });
 
 // @route GET api/matches/:id
-// @desc get match id
+// @desc get match by id
 // @access Public
 router.get("/:id", (req, res) => {
   Match.findById(req.params.id)
@@ -136,6 +136,42 @@ router.post(
     });
 
     newMatch.save().then(match => res.json(match));
+  }
+);
+
+// @route POST api/matches/update/:id
+// @desc update match
+// @access Private
+router.post(
+  "/update/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateMatchInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    console.log("im in match upd action");
+    console.log(req.body);
+    Match.findById(req.params.id)
+      .then(match => {
+        if (req.body.firstTeamFirstHalfGoals)
+          match.firstTeamFirstHalfGoals = req.body.firstTeamFirstHalfGoals;
+        if (req.body.firstTeamSecondHalfGoals)
+          match.firstTeamSecondHalfGoals = req.body.firstTeamSecondHalfGoals;
+        if (req.body.secondTeamFirstHalfGoals)
+          match.secondTeamFirstHalfGoals = req.body.secondTeamFirstHalfGoals;
+        if (req.body.secondTeamSecondHalfGoals)
+          match.secondTeamSecondHalfGoals = req.body.secondTeamSecondHalfGoals;
+        //  console.log(match);
+        match
+          .save()
+          .then(match => res.json(match))
+          .catch(err =>
+            res.status(404).json({ matchdontsave: "match dont save" })
+          );
+      })
+      .catch(err => res.status(404).json({ matchnotfound: "match not found" }));
   }
 );
 
