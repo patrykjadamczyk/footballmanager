@@ -68,7 +68,7 @@ export const getCurrentTeam = id => dispatch => {
 export const updateTeam = teamData => dispatch => {
   console.log(teamData);
   axios
-    .post(`/api/teams/update/${teamData.id}`)
+    .post(`/api/teams/update/${teamData.id}`, teamData)
     .then(res =>
       dispatch({
         type: UPDATE_TEAM,
