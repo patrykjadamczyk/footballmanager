@@ -40,7 +40,10 @@ export default function(state = initialState, action) {
     case UPDATE_TEAM:
       return {
         ...state,
-        teams: [action.payload, ...state.teams]
+        teams: [
+          action.payload,
+          ...state.teams.filter(match => match._id != action.payload)
+        ]
       };
     case DELETE_TEAM:
       return {

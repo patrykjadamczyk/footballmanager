@@ -48,13 +48,13 @@ export default function(state = initialState, action) {
         ...state,
         matches: [
           action.payload,
-          ...state.matches.filter(match => match._id !== action.payload)
+          ...state.matches.filter(match => match._id !== action.payload._id)
         ]
       };
     case DELETE_MATCH:
       return {
         ...state,
-        matches: state.matches.filter(match => match._id !== action.payload)
+        matches: state.matches.filter(match => match._id !== action.payload._id)
       };
     default:
       return state;
