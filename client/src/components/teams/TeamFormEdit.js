@@ -43,7 +43,7 @@ class TeamFormEdit extends Component {
       years: this.state.years
     };
     // console.log(teamData);
-    this.props.addTeam(teamData);
+    this.props.updateTeam(teamData);
     //this.props.updateTeam(teamData);
   };
 
