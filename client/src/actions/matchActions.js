@@ -53,7 +53,7 @@ export const getCurrentMatch = id => dispatch => {
     .then(res =>
       dispatch({
         type: GET_MATCH,
-        payload: id
+        payload: res.data
       })
     )
     .catch(err =>

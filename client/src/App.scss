@@ -37,3 +37,28 @@
 .betting-user-fom-box label {
   width: 100px;
 }
+.matches-box .disabled {
+  position: relative;
+}
+
+.disabled:before {
+  position: absolute;
+  content: "";
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgba(1, 1, 1, 0.6);
+  z-index: 99;
+}
+.disabled:after {
+  position: absolute;
+  content: "Mecz zakonczony";
+  z-index: 100;
+  top: 10px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  color: rgb(1, 1, 1);
+  font-size: 30px;
+}

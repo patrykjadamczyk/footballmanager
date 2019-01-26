@@ -49,6 +49,9 @@ const MatchSchema = new Schema({
       }
     }
   ],
+  disabled: {
+    type: Number
+  },
   date: {
     type: Date,
     default: Date.now

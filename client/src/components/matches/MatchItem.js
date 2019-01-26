@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteMatch, updateMatch } from "../../actions/matchActions";
+import { addMatchFinals } from "../../actions/matchFinalActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 import MatchBettingsFeed from "../bettings/MatchBettingsFeed";
 import MatchBettingUserForm from "../bettings/MatchBettingUserForm";
+import Moment from "react-moment";
 
 class MatchItem extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class MatchItem extends Component {
       firstTeamSecondHalfGoals: props.match.firstTeamSecondHalfGoals,
       secondTeamFirstHalfGoals: props.match.secondTeamFirstHalfGoals,
       secondTeamSecondHalfGoals: props.match.secondTeamSecondHalfGoals,
+      disabled: 0,
       showMatchBettingFeed: false,
       showMatchBettingUser: false
     };
@@ -49,27 +52,38 @@ class MatchItem extends Component {
     this.props.updateMatch(matchData);
   }
 
+  onFinalClick(id) {
+    //  console.log(this.props.auth);
+
+    const finalData = {
+      matchId: id
+    };
+    const matchData = {
+      id: id,
+      disabled: 1
+    };
+    this.props.addMatchFinals(finalData);
+    this.props.updateMatch(matchData);
+  }
+
   render() {
     const { match } = this.props;
-
     const firstTeamName = this.state.firstTeamName.split("_")[0];
     const firstTeamSufix = this.state.firstTeamName.split("_")[1];
     const secondTeamName = this.state.secondTeamName.split("_")[0];
     const secondTeamSufix = this.state.secondTeamName.split("_")[1];
 
-    // const day = date("Y-m-d", match.date);
-    // const time = date("H:i:s", match.date);
-
     return (
-      <div className="card card-body mb-3 match-item-box">
+      <div className={match.disabled == 1 ? "disabled" : ""}>
         <div className="card card-info">
           <div
             className="card-header bg-info text-white"
             style={{ fontWeight: "bold" }}
           >
             <p className="text-white float-left mb-0">
-              Termin rozgrywki: {match.date} <br /> Zobacz jak obstawiali inni
-              uczestnicy rozgrywki!
+              Termin rozgrywki:{" "}
+              <Moment parse="YYYY-MM-DD HH:mm">{match.date}</Moment> <br />{" "}
+              Zobacz jak obstawiali inni uczestnicy rozgrywki!
             </p>
             <button
               className="btn btn-dark float-right"
@@ -180,7 +194,14 @@ class MatchItem extends Component {
                 />
               </div>
             </div>
-            <div className="col-md-2 d-flex flex-column">
+            <div className="col-md-12 float-right d-flex flex-column">
+              <button
+                onClick={this.onFinalClick.bind(this, match._id)}
+                type="button"
+                className="btn mt-1 float-right"
+              >
+                finalizuj
+              </button>
               {/* <button
                 onClick={this.onDeleteClick.bind(this, match._id)}
                 type="button"
@@ -208,5 +229,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { deleteMatch, updateMatch }
+  { deleteMatch, updateMatch, addMatchFinals }
 )(MatchItem);

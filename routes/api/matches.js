@@ -132,7 +132,8 @@ router.post(
       firstTeamFirstHalfGoals: req.body.firstTeamFirstHalfGoals,
       firstTeamSecondHalfGoals: req.body.firstTeamSecondHalfGoals,
       secondTeamFirstHalfGoals: req.body.secondTeamFirstHalfGoals,
-      secondTeamSecondHalfGoals: req.body.secondTeamSecondHalfGoals
+      secondTeamSecondHalfGoals: req.body.secondTeamSecondHalfGoals,
+      disabled: 0
     });
 
     newMatch.save().then(match => res.json(match));
@@ -151,8 +152,7 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    console.log("im in match upd action");
-    console.log(req.body);
+
     Match.findById(req.params.id)
       .then(match => {
         if (req.body.firstTeamFirstHalfGoals)
@@ -163,7 +163,8 @@ router.post(
           match.secondTeamFirstHalfGoals = req.body.secondTeamFirstHalfGoals;
         if (req.body.secondTeamSecondHalfGoals)
           match.secondTeamSecondHalfGoals = req.body.secondTeamSecondHalfGoals;
-        //  console.log(match);
+        if (req.body.disabled) match.disabled = req.body.disabled;
+
         match
           .save()
           .then(match => res.json(match))
