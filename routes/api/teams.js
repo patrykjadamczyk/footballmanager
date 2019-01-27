@@ -122,6 +122,13 @@ router.post(
         res.status(400).json(errors);
       }
     });
+
+    // team
+    // .save()
+    // .then(team => res.json(team))
+    // .catch(err =>
+    //   res.status(404).json({ teamdontsave: "team dont save" })
+    // );
   }
 );
 

@@ -10,6 +10,7 @@ class MatchForm extends Component {
     super(props);
     this.state = {
       date: "",
+      time: "",
       firstTeamName: "",
       secondTeamName: "",
       firstTeamFirstHalfGoals: "",
@@ -26,14 +27,24 @@ class MatchForm extends Component {
     if (newProps.errors) {
       this.setState({ errors: newProps.errors });
     }
-    console.log(newProps.errors);
+    //  console.log(newProps.errors);
   }
 
   onSubmit(e) {
     e.preventDefault();
+    //  console.log(this.state.date);
+    // console.log(this.state.time);
+    let dateToFormat = new Date(this.state.date);
+    //  dateToFormat.setMinutes("34-44");
+    // dateToFormat.setTime(this.state.time);
+    //  console.log(dateToFormat);
+    // const dateTime = moment(
+    //   `${this.state.date} ${this.state.time}`,
+    //   "YYYY-MM-DD HH:mm:ss"
+    // ).format();
 
     const newMatch = {
-      date: this.state.date,
+      date: dateToFormat,
       firstTeamName: this.state.firstTeamName,
       secondTeamName: this.state.secondTeamName,
       firstTeamFirstHalfGoals: this.state.firstTeamFirstHalfGoals,
@@ -79,6 +90,15 @@ class MatchForm extends Component {
                     error={errors.date}
                   />
                 </div>
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="">Podaj godzinę meczu</label>
+                <input
+                  type="time"
+                  name="time"
+                  value={this.state.time}
+                  onChange={this.onChange}
+                />
               </div>
               <div className="row">
                 <div className="col-md-4">
