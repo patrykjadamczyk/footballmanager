@@ -1,0 +1,67 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '8.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm install --prefix client
+  displayName: 'Installing Server Packages and Client Packages'
+
+- script: |
+    npm run build --prefix client
+  displayName: 'Building React'
+
+#- task: PublishBuildArtifacts@1
+#  displayName: 'Publishing Build'
+#  inputs:
+#    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    
+- task: CopyFiles@2
+  displayName: 'Copying files except client'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      **/*
+      !client/**/*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  displayName: 'Copying client build files'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      client/build/*
+      client/build/**/*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: ArchiveFiles@1
+  displayName: 'Archive files'
+  inputs:
+    rootFolder: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+
+- task: CopyFiles@2
+  displayName: 'Copying builded file'
+  inputs:
+    SourceFolder: '$(Build.ArtifactStagingDirectory)'
+    Contents: '$(Build.BuildId).zip'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\ArtifactsToBePublished'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing Build'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\ArtifactsToBePublished'
+ 
