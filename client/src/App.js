@@ -15,7 +15,7 @@ import Register from "./components/auth/Register";
 import Teams from "./components/teams/Teams";
 import Matches from "./components/matches/Matches";
 
-import "./App.css";
+import "./App.scss";
 
 // Check for token
 if (localStorage.jwtToken) {
