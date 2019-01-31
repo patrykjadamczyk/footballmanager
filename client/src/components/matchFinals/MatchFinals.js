@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import MatchFinalFeed from "./MatchFinalFeed";
 import Spinner from "../common/spinner";
 import { getMatchFinals } from "../../actions/matchFinalActions";
+import { getMatches } from "../../actions/matchActions";
 
 class MatchFinals extends Component {
   componentDidMount() {
@@ -11,40 +12,54 @@ class MatchFinals extends Component {
       this.props.history.push("/");
     }
     this.props.getMatchFinals();
+    this.props.getMatches();
   }
 
   render() {
     const { matchFinals, loading } = this.props.matchFinal;
+    const { matches } = this.props.match;
 
     let matchFinalContent;
 
-    if (matchFinals === null || loading || matchFinals.length === 0) {
+    if (
+      matchFinals === null ||
+      loading ||
+      matchFinals.length === 0 ||
+      matches === null ||
+      matches.length === 0
+    ) {
       matchFinalContent = <Spinner />;
     } else {
-      matchFinalContent = <MatchFinalFeed matchFinals={matchFinals} />;
+      // console.log(matchFinals);
+      //console.log(matches);
+      // matchFinals.map(matchFinal => {
+      //   console.log(matchFinal.matchId);
+      //   this.props.getCurrentMatch(matchFinal.matchId);
+      //   console.log(this.props.match);
+      // });
+      matchFinalContent = (
+        <MatchFinalFeed matches={matches} matchFinals={matchFinals} />
+      );
     }
-    return (
-      <div className="feed match-finals-box">
-        <div className="container">
-          <div className="col-md-12">{matchFinalContent}</div>
-        </div>
-      </div>
-    );
+    return <div className="feed match-finals-box">{matchFinalContent}</div>;
   }
 }
 
 MatchFinals.propTypes = {
   matchFinal: PropTypes.object.isRequired,
   getMatchFinals: PropTypes.func.isRequired,
+  getMatches: PropTypes.func.isRequired,
+  matches: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   matchFinal: state.matchFinal,
+  match: state.match,
   auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { getMatchFinals }
+  { getMatchFinals, getMatches }
 )(MatchFinals);

@@ -39,6 +39,7 @@ router.get("/:id", (req, res) => {
 // @desc get match id
 // @access Public
 router.get("/current/:id", (req, res) => {
+  // console.log(req.params.id);
   Match.findById(req.params.id)
     .then(match => res.json(match))
     .catch(err =>
