@@ -16,15 +16,24 @@ class MatchFinalFeed extends Component {
           <thead className="thead-light">
             <tr>
               <th scope="col">Użytkownik</th>
-              <th scope="col">Wynik meczu I połowa</th>
-              <th scope="col">Wynik meczu II połowa</th>
-              <th scope="col">Łączny wynik meczu</th>
-              <th scope="col">Wynik zakładu I połowa</th>
-              <th scope="col">Wynik zakładu II połowa</th>
-              <th scope="col">Łączny wynik zakładu</th>
-              <th scope="col">Liczba pkt I połowa</th>
-              <th scope="col">Liczba pkt II połowa</th>
-              <th scope="col">Łączna liczba punktów</th>
+              <th scope="col" style={{ width: "350px" }}>
+                Mecz: I połowa II połowa{" "}
+                <span className="d-block border border-primary">Wynik</span>
+              </th>
+              <th scope="col" style={{ width: "350px" }}>
+                Zakład: I połowa II połowa
+                <span className="d-block border border-primary">Wynik</span>
+              </th>
+              <th scope="col">
+                <span className="d-block">Punkty I połowa II połowa</span>
+                <span className="d-block">suma</span>
+              </th>
+              {/* <th scope="col">
+                Punkty <span className="d-block">II połowa</span>
+              </th>
+              <th scope="col">
+                Suma <span className="d-block">punktów</span>
+              </th> */}
             </tr>
           </thead>
           <tbody>

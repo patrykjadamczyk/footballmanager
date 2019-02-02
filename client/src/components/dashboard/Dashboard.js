@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import MatchFinals from "../matchFinals/MatchFinals";
+import MatchLegend from "../matches/MatchLegend";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard-box">
+        <MatchLegend />
         <MatchFinals />
       </div>
     );

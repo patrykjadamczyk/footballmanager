@@ -74,7 +74,7 @@ class MatchItem extends Component {
     const secondTeamSufix = this.state.secondTeamName.split("_")[1];
 
     return (
-      <div className={match.disabled == 1 ? "disabled" : ""}>
+      <div className={match.disabled === 1 ? "disabled" : ""}>
         <div className="card card-info">
           <div
             className="card-header bg-info text-white"

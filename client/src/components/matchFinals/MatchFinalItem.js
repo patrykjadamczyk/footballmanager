@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import MatchCard from "../matches/MatchCard";
+import classNames from "classnames";
 
 class MatchFinalItem extends Component {
   render() {
     const { matchFinal, matches } = this.props;
 
-    const match = matches.filter(match => match._id == matchFinal.matchId)[0];
+    const match = matches.filter(match => match._id === matchFinal.matchId)[0];
     const firstTeamName = match.firstTeamName.split("_")[0];
     const firstTeamSufix = match.firstTeamName.split("_")[1];
     const secondTeamName = match.secondTeamName.split("_")[0];
@@ -18,7 +20,7 @@ class MatchFinalItem extends Component {
 
     console.log(match);
     const betting = match.bettings.filter(
-      betting => betting.userId == matchFinal.userId
+      betting => betting.userId === matchFinal.userId
     )[0];
 
     const firstTeamBettingTotalGoals =
@@ -30,164 +32,174 @@ class MatchFinalItem extends Component {
       <tr>
         <td>{betting.userName}</td>
         <td>
-          <div style={{ minWidth: "150px" }}>
-            <span>
-              {firstTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">I</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={match.firstTeamFirstHalfGoals}
               />
-              {match.firstTeamFirstHalfGoals}
-            </span>
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={match.secondTeamFirstHalfGoals}
+              />
+            </div>
           </div>
-          <div>
-            <span>
-              {secondTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">II</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={match.firstTeamSecondHalfGoals}
               />
-              {match.secondTeamFirstHalfGoals}
-            </span>
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={match.secondTeamSecondHalfGoals}
+              />
+            </div>
           </div>
-        </td>
-        <td>
-          <div style={{ minWidth: "150px" }}>
-            <span>
-              {firstTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
+          <div
+            className={
+              "match-final-item-total clearfix border border-primary" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">W</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={firstTeamTotalGoals}
               />
-              {match.firstTeamSecondHalfGoals}
             </span>
-          </div>
-          <div>
-            <span>
-              {secondTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
+            <span>:</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={secondTeamTotalGoals}
               />
-              {match.secondTeamSecondHalfGoals}
-            </span>
-          </div>
-        </td>
-        <td>
-          <div style={{ minWidth: "150px" }}>
-            <span>
-              {firstTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
-              />
-              {firstTeamTotalGoals}
-            </span>
-          </div>
-          <div>
-            <span>
-              {secondTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
-              />
-              {secondTeamTotalGoals}
             </span>
           </div>
         </td>
         <td>
-          <div style={{ minWidth: "150px" }}>
-            <span>
-              {firstTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">I</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={betting.firstTeamFirstHalfGoals}
               />
-              {betting.firstTeamFirstHalfGoals}
-            </span>
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={betting.secondTeamFirstHalfGoals}
+              />
+            </div>
           </div>
-          <div>
-            <span>
-              {secondTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">II</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={betting.firstTeamSecondHalfGoals}
               />
-              {betting.secondTeamFirstHalfGoals}
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={betting.secondTeamSecondHalfGoals}
+              />
+            </div>
+          </div>
+          <div
+            className={
+              "match-final-item-total clearfix border border-primary" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">W</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={firstTeamBettingTotalGoals}
+              />
+            </span>
+            <span>:</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={secondTeamBettingTotalGoals}
+              />
             </span>
           </div>
         </td>
         <td>
-          <div style={{ minWidth: "150px" }}>
-            <span>
-              {firstTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
-              />
-              {betting.firstTeamSecondHalfGoals}
-            </span>
+          <div
+            className={
+              "match-final-points clearfix" +
+              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            {matchFinal.firstHalfPoints}
           </div>
-          <div>
-            <span>
-              {secondTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
-              />
-              {betting.secondTeamSecondHalfGoals}
-            </span>
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            {matchFinal.secondHalfPoints}
           </div>
+          <div>{matchFinal.totalPoints}</div>
         </td>
-        <td>
-          <div style={{ minWidth: "150px" }}>
-            <span>
-              {firstTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${firstTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
-              />
-              {firstTeamBettingTotalGoals}
-            </span>
-          </div>
-          <div>
-            <span>
-              {secondTeamName}
-              <img
-                className="ml-2 mr-2"
-                src={`img/flags/${secondTeamSufix}.jpg`}
-                alt=""
-                style={{ width: "20px" }}
-              />
-              {secondTeamBettingTotalGoals}
-            </span>
-          </div>
-        </td>
-        <td>{matchFinal.firstHalfPoints}</td>
-        <td>{matchFinal.secondHalfPoints}</td>
-        <td>{matchFinal.totalPoints}</td>
       </tr>
     );
   }
