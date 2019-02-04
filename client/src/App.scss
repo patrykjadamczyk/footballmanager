@@ -62,3 +62,25 @@
   color: rgb(1, 1, 1);
   font-size: 30px;
 }
+
+/*  legend  */
+.legend-box {
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    li {
+      float: left;
+      margin-right: 5px;
+      .value {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
+.bg-hit-result {
+  background-color: rgba(12, 0, 165, 0.4);
+}
+.bg-hit-winner {
+  background-color: rgba(0, 105, 27, 0.4);
+}

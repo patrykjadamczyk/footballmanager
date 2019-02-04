@@ -42,7 +42,7 @@ export default function(state = initialState, action) {
         ...state,
         teams: [
           action.payload,
-          ...state.teams.filter(match => match._id != action.payload._id)
+          ...state.teams.filter(match => match._id !== action.payload._id)
         ]
       };
     case DELETE_TEAM:

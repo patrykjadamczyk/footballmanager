@@ -1,45 +1,216 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentMatch } from "../../actions/matchActions";
+import MatchCard from "../matches/MatchCard";
+import classNames from "classnames";
 
 class MatchFinalItem extends Component {
-  componentDidMount() {
-    console.log(this.props.getCurrentMatch(this.props.matchFinal.matchId));
-  }
   render() {
-    const { matchFinal } = this.props;
-    // console.log(this.props);
-    // const firstTeamName = this.state.firstTeamName.split("_")[0];
-    // const firstTeamSufix = this.state.firstTeamName.split("_")[1];
-    // const secondTeamName = this.state.secondTeamName.split("_")[0];
-    // const secondTeamSufix = this.state.secondTeamName.split("_")[1];
-    //  console.log(matchFinal);
+    const { matchFinal, matches } = this.props;
+
+    const match = matches.filter(match => match._id === matchFinal.matchId)[0];
+    const firstTeamName = match.firstTeamName.split("_")[0];
+    const firstTeamSufix = match.firstTeamName.split("_")[1];
+    const secondTeamName = match.secondTeamName.split("_")[0];
+    const secondTeamSufix = match.secondTeamName.split("_")[1];
+    const firstTeamTotalGoals =
+      match.firstTeamFirstHalfGoals + match.firstTeamSecondHalfGoals;
+    const secondTeamTotalGoals =
+      match.secondTeamFirstHalfGoals + match.secondTeamSecondHalfGoals;
+
+    console.log(match);
+    const betting = match.bettings.filter(
+      betting => betting.userId === matchFinal.userId
+    )[0];
+
+    const firstTeamBettingTotalGoals =
+      betting.firstTeamFirstHalfGoals + betting.firstTeamSecondHalfGoals;
+    const secondTeamBettingTotalGoals =
+      betting.secondTeamFirstHalfGoals + betting.secondTeamSecondHalfGoals;
+
     return (
       <tr>
-        <td>{matchFinal.userId}</td>
-        <td>{matchFinal.matchId}</td>
-        <td>{matchFinal.matchId}</td>
-        <td>{matchFinal.firstHalfPoints}</td>
-        <td>{matchFinal.secondHalfPoints}</td>
-        <td>{matchFinal.totalPoints}</td>
+        <td>{betting.userName}</td>
+        <td>
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">I</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={match.firstTeamFirstHalfGoals}
+              />
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={match.secondTeamFirstHalfGoals}
+              />
+            </div>
+          </div>
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">II</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={match.firstTeamSecondHalfGoals}
+              />
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={match.secondTeamSecondHalfGoals}
+              />
+            </div>
+          </div>
+          <div
+            className={
+              "match-final-item-total clearfix border border-primary" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">W</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={firstTeamTotalGoals}
+              />
+            </span>
+            <span>:</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={secondTeamTotalGoals}
+              />
+            </span>
+          </div>
+        </td>
+        <td>
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">I</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={betting.firstTeamFirstHalfGoals}
+              />
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={betting.secondTeamFirstHalfGoals}
+              />
+            </div>
+          </div>
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">II</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={betting.firstTeamSecondHalfGoals}
+              />
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={betting.secondTeamSecondHalfGoals}
+              />
+            </div>
+          </div>
+          <div
+            className={
+              "match-final-item-total clearfix border border-primary" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            <span className="font-weight-bold">W</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={firstTeamBettingTotalGoals}
+              />
+            </span>
+            <span>:</span>
+            <span className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={secondTeamBettingTotalGoals}
+              />
+            </span>
+          </div>
+        </td>
+        <td>
+          <div
+            className={
+              "match-final-points clearfix" +
+              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            {matchFinal.firstHalfPoints}
+          </div>
+          <div
+            className={
+              "match-final-item clearfix" +
+              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+            }
+          >
+            {matchFinal.secondHalfPoints}
+          </div>
+          <div>{matchFinal.totalPoints}</div>
+        </td>
       </tr>
     );
   }
 }
 
 MatchFinalItem.propTypes = {
-  auth: PropTypes.object.isRequired,
-  getCurrentMatch: PropTypes.func.isRequired,
-  getMatches: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentMatch }
-)(MatchFinalItem);
+export default connect(mapStateToProps)(MatchFinalItem);
