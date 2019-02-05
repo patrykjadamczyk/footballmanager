@@ -53,11 +53,10 @@
 }
 .disabled:after {
   position: absolute;
-  content: "Mecz zakonczony";
+  content: "Mecz zakończony";
   z-index: 100;
-  top: 10px;
-  left: 0px;
-  right: 0px;
+  bottom: 0px;
+  left: 5px;
   text-align: center;
   color: rgb(1, 1, 1);
   font-size: 30px;

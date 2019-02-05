@@ -60,33 +60,33 @@ class MatchBettingUserForm extends Component {
       <div className="post-form mb-3 mt-3 betting-user-fom-box">
         <form className="form-inline" onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label htmlFor="firstTeam">I drużyna</label>
+            <label htmlFor="firstHalf">I połowa</label>
             <TextFieldGroup
-              placeholder="I połowa"
+              placeholder="I drużyna"
               name="firstTeamFirstHalfGoals"
               value={this.state.firstTeamFirstHalfGoals}
               onChange={this.onChange}
               error={errors.firstTeamFirstHalfGoals}
             />
             <TextFieldGroup
-              placeholder="II połowa"
-              name="firstTeamSecondHalfGoals"
-              value={this.state.firstTeamSecondHalfGoals}
-              onChange={this.onChange}
-              error={errors.firstTeamSecondHalfGoals}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="secondTeam">II drużyna</label>
-            <TextFieldGroup
-              placeholder="I połowa"
+              placeholder="II drużyna"
               name="secondTeamFirstHalfGoals"
               value={this.state.secondTeamFirstHalfGoals}
               onChange={this.onChange}
               error={errors.secondTeamFirstHalfGoals}
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="secondHalf">II połowa</label>
             <TextFieldGroup
-              placeholder="II połowa"
+              placeholder="I drużyna"
+              name="firstTeamSecondHalfGoals"
+              value={this.state.firstTeamSecondHalfGoals}
+              onChange={this.onChange}
+              error={errors.firstTeamSecondHalfGoals}
+            />
+            <TextFieldGroup
+              placeholder="II drużyna"
               name="secondTeamSecondHalfGoals"
               value={this.state.secondTeamSecondHalfGoals}
               onChange={this.onChange}

@@ -7,6 +7,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import MatchBettingsFeed from "../bettings/MatchBettingsFeed";
 import MatchBettingUserForm from "../bettings/MatchBettingUserForm";
 import Moment from "react-moment";
+import MatchCard from "../matches/MatchCard";
 
 class MatchItem extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class MatchItem extends Component {
       secondTeamFirstHalfGoals: props.match.secondTeamFirstHalfGoals,
       secondTeamSecondHalfGoals: props.match.secondTeamSecondHalfGoals,
       disabled: 0,
+      showMatchForm: false,
       showMatchBettingFeed: false,
       showMatchBettingUser: false
     };
@@ -74,17 +76,67 @@ class MatchItem extends Component {
     const secondTeamSufix = this.state.secondTeamName.split("_")[1];
 
     return (
-      <div className={match.disabled === 1 ? "disabled" : ""}>
+      <div
+        className={match.disabled === 1 ? "disabled" : ""}
+        style={{
+          marginBottom: "10px",
+          border: "1px solid rgba(0,0,0,.125)",
+          borderRadius: "5px"
+        }}
+      >
         <div className="card card-info">
           <div
             className="card-header bg-info text-white"
             style={{ fontWeight: "bold" }}
           >
-            <p className="text-white float-left mb-0">
+            <p className="text-white mb-0 mr-4">
               Termin rozgrywki:{" "}
-              <Moment parse="YYYY-MM-DD HH:mm">{match.date}</Moment> <br />{" "}
-              Zobacz jak obstawiali inni uczestnicy rozgrywki!
+              <Moment format="YYYY-MM-DD HH:mm">{match.date}</Moment>
             </p>
+
+            {/* match cards */}
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={match.firstTeamFirstHalfGoals}
+              />
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={match.secondTeamFirstHalfGoals}
+              />
+            </div>
+            <br />
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={firstTeamName}
+                sufix={firstTeamSufix}
+                goals={match.firstTeamSecondHalfGoals}
+              />
+            </div>
+            <span>:</span>
+            <div className="d-inline ml-2 mr-2">
+              <MatchCard
+                name={secondTeamName}
+                sufix={secondTeamSufix}
+                goals={match.secondTeamSecondHalfGoals}
+              />
+            </div>
+            <button
+              className="btn btn-light float-right"
+              style={{ cursor: "pointer", fontSize: "20px" }}
+              onClick={() => {
+                this.setState({
+                  showMatchForm: !this.state.showMatchForm
+                });
+              }}
+            >
+              Formularz
+            </button>
             <button
               className="btn btn-dark float-right"
               style={{ cursor: "pointer", fontSize: "20px" }}
@@ -98,7 +150,7 @@ class MatchItem extends Component {
             </button>
           </div>
           {this.state.showMatchBettingFeed ? (
-            <MatchBettingsFeed bettings={match.bettings} />
+            <MatchBettingsFeed bettings={match.bettings} match={match} />
           ) : null}
           <button
             type="button"
@@ -115,103 +167,105 @@ class MatchItem extends Component {
             <MatchBettingUserForm match={match} />
           ) : null}
         </div>
-        <form onSubmit={this.onSubmit}>
-          <div className="row">
-            <div className="col-md-3 text-center">
-              <p
-                className="mt-2"
-                style={{ fontWeight: "bold", textAlign: "center" }}
-              >
-                I drużyna
-              </p>
-              <br />
-              <img src={`img/flags/${firstTeamSufix}.jpg`} alt="" />
-              <br />
-              <p className="text-center">{firstTeamName}</p>
-            </div>
-            <div className="col-md-2">
-              <div className="lead float-left">
-                Liczba bramek I połowa:
-                <TextFieldGroup
-                  name="firstTeamFirstHalfGoals"
-                  value={this.state.firstTeamFirstHalfGoals}
-                  onChange={this.onChange}
-                />
+        {this.state.showMatchForm ? (
+          <form onSubmit={this.onSubmit}>
+            <div className="row">
+              <div className="col-md-3 text-center">
+                <p
+                  className="mt-2"
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                >
+                  I drużyna
+                </p>
+                <br />
+                <img src={`img/flags/${firstTeamSufix}.jpg`} alt="" />
+                <br />
+                <p className="text-center">{firstTeamName}</p>
               </div>
-              <div className="lead float-right">
-                Liczba bramek II połowa:
-                <TextFieldGroup
-                  name="firstTeamSecondHalfGoals"
-                  value={this.state.firstTeamSecondHalfGoals}
-                  onChange={this.onChange}
-                />
+              <div className="col-md-2">
+                <div className="lead float-left">
+                  Liczba bramek I połowa:
+                  <TextFieldGroup
+                    name="firstTeamFirstHalfGoals"
+                    value={this.state.firstTeamFirstHalfGoals}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="lead float-right">
+                  Liczba bramek II połowa:
+                  <TextFieldGroup
+                    name="firstTeamSecondHalfGoals"
+                    value={this.state.firstTeamSecondHalfGoals}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
+              <div
+                className="col-md-2"
+                style={{
+                  fontSize: "90px",
+                  fonstWeight: "bold",
+                  textAlign: "center"
+                }}
+              >
+                :
+                <button
+                  onClick={this.onUpdateClick.bind(this, match._id)}
+                  className="btn btn-info"
+                >
+                  <i className="fas fa-pen-square mr-1" />
+                  Uaktualnij wynik
+                </button>
+              </div>
+              <div className="col-md-3 text-center">
+                <p
+                  className="mt-2"
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                >
+                  II drużyna
+                </p>
+                <br />
+                <img src={`img/flags/${secondTeamSufix}.jpg`} alt="" />
+                <br />
+                <p className="text-center">{secondTeamName}</p>
+              </div>
+              <div className="col-md-2">
+                <div className="lead float-left">
+                  Liczba bramek I połowa:
+                  <TextFieldGroup
+                    name="secondTeamFirstHalfGoals"
+                    value={this.state.secondTeamFirstHalfGoals}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="lead float-right">
+                  Liczba bramek II połowa:
+                  <TextFieldGroup
+                    name="secondTeamSecondHalfGoals"
+                    value={this.state.secondTeamSecondHalfGoals}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-12 float-right d-flex flex-column">
+                <button
+                  onClick={this.onFinalClick.bind(this, match._id)}
+                  type="button"
+                  className="btn mt-1 float-right"
+                >
+                  finalizuj
+                </button>
+                {/* <button
+                  onClick={this.onDeleteClick.bind(this, match._id)}
+                  type="button"
+                  className="btn btn-danger mt-1 float-right"
+                >
+                  <i className="fas fa-times" />
+                </button> */}
               </div>
             </div>
-            <div
-              className="col-md-2"
-              style={{
-                fontSize: "90px",
-                fonstWeight: "bold",
-                textAlign: "center"
-              }}
-            >
-              :
-              <button
-                onClick={this.onUpdateClick.bind(this, match._id)}
-                className="btn btn-info"
-              >
-                <i className="fas fa-pen-square mr-1" />
-                Uaktualnij wynik
-              </button>
-            </div>
-            <div className="col-md-3 text-center">
-              <p
-                className="mt-2"
-                style={{ fontWeight: "bold", textAlign: "center" }}
-              >
-                II drużyna
-              </p>
-              <br />
-              <img src={`img/flags/${secondTeamSufix}.jpg`} alt="" />
-              <br />
-              <p className="text-center">{secondTeamName}</p>
-            </div>
-            <div className="col-md-2">
-              <div className="lead float-left">
-                Liczba bramek I połowa:
-                <TextFieldGroup
-                  name="secondTeamFirstHalfGoals"
-                  value={this.state.secondTeamFirstHalfGoals}
-                  onChange={this.onChange}
-                />
-              </div>
-              <div className="lead float-right">
-                Liczba bramek II połowa:
-                <TextFieldGroup
-                  name="secondTeamSecondHalfGoals"
-                  value={this.state.secondTeamSecondHalfGoals}
-                  onChange={this.onChange}
-                />
-              </div>
-            </div>
-            <div className="col-md-12 float-right d-flex flex-column">
-              <button
-                onClick={this.onFinalClick.bind(this, match._id)}
-                type="button"
-                className="btn mt-1 float-right"
-              >
-                finalizuj
-              </button>
-              {/* <button
-                onClick={this.onDeleteClick.bind(this, match._id)}
-                type="button"
-                className="btn btn-danger mt-1 float-right"
-              >
-                <i className="fas fa-times" />
-              </button> */}
-            </div>
-          </div>
-        </form>
+          </form>
+        ) : null}
       </div>
     );
   }

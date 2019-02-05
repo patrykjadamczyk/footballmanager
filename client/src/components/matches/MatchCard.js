@@ -24,7 +24,7 @@ const MatchCard = ({ name, sufix, goals }) => {
 MatchCard.propTypes = {
   name: PropTypes.string.isRequired,
   sufix: PropTypes.string.isRequired,
-  goals: PropTypes.string.isRequired
+  goals: PropTypes.number.isRequired
 };
 
 export default MatchCard;
