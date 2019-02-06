@@ -37,10 +37,10 @@ class MatchFinals extends Component {
       //   this.props.getCurrentMatch(matchFinal.matchId);
       //   console.log(this.props.match);
       // });
-      let reverse = matchFinals.reverse();
+      // let reverse = matchFinals.reverse();
 
       matchFinalContent = (
-        <MatchFinalFeed matches={matches} matchFinals={reverse} />
+        <MatchFinalFeed matches={matches} matchFinals={matchFinals} />
       );
     }
     return <div className="feed match-finals-box">{matchFinalContent}</div>;

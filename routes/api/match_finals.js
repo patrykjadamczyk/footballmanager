@@ -17,7 +17,7 @@ router.get("/test", (req, res) => res.json({ msg: "match final works" }));
 // @access Public
 router.get("/", (req, res) => {
   MatchFinal.find()
-    //.sort({ date: -1 })
+    .sort({ date: -1 })
     .then(matchFinal => res.json(matchFinal))
     .catch(err =>
       res.status(404).json({ nomatchfinalfound: `No match final found` })

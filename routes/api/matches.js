@@ -130,13 +130,26 @@ router.post(
       user: req.user.id,
       firstTeamName: req.body.firstTeamName,
       secondTeamName: req.body.secondTeamName,
-      firstTeamFirstHalfGoals: req.body.firstTeamFirstHalfGoals,
-      firstTeamSecondHalfGoals: req.body.firstTeamSecondHalfGoals,
-      secondTeamFirstHalfGoals: req.body.secondTeamFirstHalfGoals,
-      secondTeamSecondHalfGoals: req.body.secondTeamSecondHalfGoals,
+      firstTeamFirstHalfGoals:
+        req.body.firstTeamFirstHalfGoals === ""
+          ? 0
+          : req.body.firstTeamFirstHalfGoals,
+      firstTeamSecondHalfGoals:
+        req.body.firstTeamSecondHalfGoals === ""
+          ? 0
+          : req.body.firstTeamSecondHalfGoals,
+      secondTeamFirstHalfGoals:
+        req.body.secondTeamFirstHalfGoals === ""
+          ? 0
+          : req.body.secondTeamFirstHalfGoals,
+      secondTeamSecondHalfGoals:
+        req.body.secondTeamSecondHalfGoals === ""
+          ? 0
+          : req.body.secondTeamSecondHalfGoals,
+      date: req.body.date,
       disabled: 0
     });
-
+    console.log(newMatch);
     newMatch.save().then(match => res.json(match));
   }
 );

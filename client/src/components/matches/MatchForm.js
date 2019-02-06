@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { addMatch } from "../../actions/matchActions";
-import Moment from "react-moment";
+import moment from "moment";
 
 class MatchForm extends Component {
   constructor(props) {
@@ -34,30 +34,10 @@ class MatchForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    // const combineDateAndTime = (date, time) => {
-    //   var timeString = time.getHours() + ":" + time.getMinutes() + ":00";
-    //   var ampm = time.getHours() >= 12 ? "PM" : "AM";
-    //   var year = date.getFullYear();
-    //   var month = date.getMonth() + 1; // Jan is 0, dec is 11
-    //   var day = date.getDate();
-    //   var dateString = "" + year + "-" + month + "-" + day;
-    //   var datec = dateString + "T" + timeString;
-    //   var combined = new Date(datec);
-
-    //   return combined;
-    // };
-    // console.log(this.state.date);
-    // console.log(this.state.time);
-    let dateToFormat = new Date(this.state.date, this.state.time);
-    //  dateToFormat.setMinutes("34-44");
-    // dateToFormat.setTime(this.state.time);
-    //  console.log(dateToFormat);
-    // const dateTime = moment(
-    //   `${this.state.date} ${this.state.time}`,
-    //   "YYYY-MM-DD HH:mm:ss"
-    // ).format();
-
-    console.log(dateToFormat);
+    const dateToFormat = moment(
+      `${this.state.date} ${this.state.time}`,
+      "YYYY-MM-DD HH:mm:ss"
+    ).format();
 
     const newMatch = {
       date: dateToFormat,
@@ -108,15 +88,17 @@ class MatchForm extends Component {
                     error={errors.date}
                   />
                 </div>
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="">Podaj godzinę meczu</label>
-                <input
-                  type="time"
-                  name="time"
-                  value={this.state.time}
-                  onChange={this.onChange}
-                />
+                <div className="col-md-4">
+                  <label htmlFor="">Podaj godzinę meczu</label>
+                  <div className="form-group">
+                    <input
+                      type="time"
+                      name="time"
+                      value={this.state.time}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="row">
                 <div className="col-md-4">
