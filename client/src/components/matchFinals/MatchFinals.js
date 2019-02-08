@@ -37,6 +37,8 @@ class MatchFinals extends Component {
       //   this.props.getCurrentMatch(matchFinal.matchId);
       //   console.log(this.props.match);
       // });
+      // let reverse = matchFinals.reverse();
+
       matchFinalContent = (
         <MatchFinalFeed matches={matches} matchFinals={matchFinals} />
       );
@@ -49,7 +51,7 @@ MatchFinals.propTypes = {
   matchFinal: PropTypes.object.isRequired,
   getMatchFinals: PropTypes.func.isRequired,
   getMatches: PropTypes.func.isRequired,
-  matches: PropTypes.object.isRequired,
+  // matches: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 

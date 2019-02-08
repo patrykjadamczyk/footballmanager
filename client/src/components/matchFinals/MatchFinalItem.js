@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import MatchCard from "../matches/MatchCard";
-import classNames from "classnames";
 
 class MatchFinalItem extends Component {
   render() {
@@ -18,7 +17,7 @@ class MatchFinalItem extends Component {
     const secondTeamTotalGoals =
       match.secondTeamFirstHalfGoals + match.secondTeamSecondHalfGoals;
 
-    console.log(match);
+    // console.log(match);
     const betting = match.bettings.filter(
       betting => betting.userId === matchFinal.userId
     )[0];
@@ -35,8 +34,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item clearfix" +
-              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.firstHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             <span className="font-weight-bold">I</span>
@@ -59,8 +58,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item clearfix" +
-              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.secondHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             <span className="font-weight-bold">II</span>
@@ -83,8 +82,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item-total clearfix border border-primary" +
-              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.secondHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             <span className="font-weight-bold">W</span>
@@ -109,8 +108,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item clearfix" +
-              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.firstHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             <span className="font-weight-bold">I</span>
@@ -133,8 +132,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item clearfix" +
-              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.secondHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             <span className="font-weight-bold">II</span>
@@ -157,8 +156,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item-total clearfix border border-primary" +
-              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.secondHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             <span className="font-weight-bold">W</span>
@@ -183,8 +182,8 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-points clearfix" +
-              (matchFinal.firstHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.firstHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.firstHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.firstHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             {matchFinal.firstHalfPoints}
@@ -192,13 +191,15 @@ class MatchFinalItem extends Component {
           <div
             className={
               "match-final-item clearfix" +
-              (matchFinal.secondHalfHitWinner == 1 ? " bg-hit-winner" : "") +
-              (matchFinal.secondHalfHitResult == 1 ? " bg-hit-result" : "")
+              (matchFinal.secondHalfHitWinner === 1 ? " bg-hit-winner" : "") +
+              (matchFinal.secondHalfHitResult === 1 ? " bg-hit-result" : "")
             }
           >
             {matchFinal.secondHalfPoints}
           </div>
-          <div>{matchFinal.totalPoints}</div>
+          <div className="match-final-item clearfix">
+            {matchFinal.totalPoints}
+          </div>
         </td>
       </tr>
     );

@@ -7,6 +7,12 @@ import Spinner from "../common/spinner";
 import { getMatches } from "../../actions/matchActions";
 
 class Matches extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showMatchForm: false
+    };
+  }
   componentDidMount() {
     if (this.props.auth.isAuthenticated === false) {
       this.props.history.push("/");
@@ -29,7 +35,18 @@ class Matches extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <MatchForm />
+              <button
+                type="button"
+                className="btn btn-success mb-2 pull-right"
+                onClick={() => {
+                  this.setState({
+                    showMatchForm: !this.state.showMatchForm
+                  });
+                }}
+              >
+                dodaj mecz
+              </button>
+              {this.state.showMatchForm ? <MatchForm /> : null}
               {matchContent}
             </div>
           </div>

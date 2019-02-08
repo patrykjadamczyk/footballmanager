@@ -4,21 +4,19 @@ import MatchBettingItem from "./MatchBettingsItem";
 
 class MatchBettingsFeed extends Component {
   render() {
-    const { bettings } = this.props;
+    const { bettings, match } = this.props;
     const bettingItems = bettings.map(betting => (
-      <MatchBettingItem key={betting._id} betting={betting} />
+      <MatchBettingItem key={betting._id} betting={betting} match={match} />
     ));
 
     return (
       <div className="bettings-box">
-        <table className="table table-striped table-dark table-responsive">
+        <table className="table table-striped table-dark table-responsive mb-0">
           <thead>
             <tr>
               <th scope="col">Użytkownik</th>
-              <th scope="col">I drużyna I połowa</th>
-              <th scope="col">I drużyna II połowa</th>
-              <th scope="col">II drużyna I połowa </th>
-              <th scope="col">II drużyna II połowa </th>
+              <th scope="col">I połowa I drużyna : II drużyna</th>
+              <th scope="col">II połowa: I drużyna : II drużyna</th>
             </tr>
           </thead>
           <tbody>{bettingItems}</tbody>

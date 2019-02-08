@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { addMatch } from "../../actions/matchActions";
+import moment from "moment";
 
 class MatchForm extends Component {
   constructor(props) {
@@ -32,16 +33,11 @@ class MatchForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    //  console.log(this.state.date);
-    // console.log(this.state.time);
-    let dateToFormat = new Date(this.state.date);
-    //  dateToFormat.setMinutes("34-44");
-    // dateToFormat.setTime(this.state.time);
-    //  console.log(dateToFormat);
-    // const dateTime = moment(
-    //   `${this.state.date} ${this.state.time}`,
-    //   "YYYY-MM-DD HH:mm:ss"
-    // ).format();
+
+    const dateToFormat = moment(
+      `${this.state.date} ${this.state.time}`,
+      "YYYY-MM-DD HH:mm:ss"
+    ).format();
 
     const newMatch = {
       date: dateToFormat,
@@ -72,8 +68,10 @@ class MatchForm extends Component {
       { label: "Rosja", value: "Rosja_Ru" },
       { label: "Szwecja", value: "Szwecja_Se" }
     ];
+
     return (
       <div className="post-form mb-3">
+        {/* <Moment format="D MMM YYYY">1976-04-19T12:59-0500</Moment> */}
         <div className="card card-info">
           <div className="card-header bg-info text-white">Dodaj mecz</div>
           <div className="card-body">
@@ -90,15 +88,17 @@ class MatchForm extends Component {
                     error={errors.date}
                   />
                 </div>
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="">Podaj godzinę meczu</label>
-                <input
-                  type="time"
-                  name="time"
-                  value={this.state.time}
-                  onChange={this.onChange}
-                />
+                <div className="col-md-4">
+                  <label htmlFor="">Podaj godzinę meczu</label>
+                  <div className="form-group">
+                    <input
+                      type="time"
+                      name="time"
+                      value={this.state.time}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="row">
                 <div className="col-md-4">
@@ -121,30 +121,30 @@ class MatchForm extends Component {
                 </div>
                 <div className="col-md-4">
                   <TextFieldGroup
-                    placeholder="Liczba bramek I drużyna I połowa"
+                    placeholder="Liczba bramek I połowa I drużyna"
                     name="firstTeamFirstHalfGoals"
                     value={this.state.firstTeamFirstHalfGoals}
                     onChange={this.onChange}
                     error={errors.firstTeamFirstHalfGoals}
                   />
                   <TextFieldGroup
-                    placeholder="Liczba bramek II drużyna I połowa"
-                    name="secondTeamFirstHalfGoals"
-                    value={this.state.secondTeamFirstHalfGoals}
-                    onChange={this.onChange}
-                    error={errors.secondTeamFirstHalfGoals}
-                  />
-                </div>
-                <div className="col-md-4">
-                  <TextFieldGroup
-                    placeholder="Liczba bramek I drużyna II połowa"
+                    placeholder="Liczba bramek II połowa I drużyna"
                     name="firstTeamSecondHalfGoals"
                     value={this.state.firstTeamSecondHalfGoals}
                     onChange={this.onChange}
                     error={errors.firstTeamSecondHalfGoals}
                   />
+                </div>
+                <div className="col-md-4">
                   <TextFieldGroup
-                    placeholder="Liczba bramek II drużyna II połowa"
+                    placeholder="Liczba bramek I połowa II drużyna"
+                    name="secondTeamFirstHalfGoals"
+                    value={this.state.secondTeamFirstHalfGoals}
+                    onChange={this.onChange}
+                    error={errors.secondTeamFirstHalfGoals}
+                  />
+                  <TextFieldGroup
+                    placeholder="Liczba bramek II połowa II drużyna"
                     name="secondTeamSecondHalfGoals"
                     value={this.state.secondTeamSecondHalfGoals}
                     onChange={this.onChange}
