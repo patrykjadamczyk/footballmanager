@@ -1,4 +1,7 @@
 # Project Football Manager
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/patrykjadamczyk/footballmanager.svg)](https://greenkeeper.io/)
+
 ## Webpage
 https://boiling-sierra-45698.herokuapp.com
 
